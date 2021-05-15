@@ -20,7 +20,7 @@ type Args struct {
 // Exec executes the plugin.
 func Exec(ctx context.Context, args Args) error {
 	projectURL := DatoNotificationURL(args.ProjectID)
-	if args.Pipeline.Build.Status != "success" {
+	if args.Pipeline.Build.Status == "success" {
 		var resultMessage = []byte(`{ "status": "success" }`)
 		http.Post(projectURL, "application/json", bytes.NewBuffer(resultMessage))
 		fmt.Printf("Sent success webhook to DatoCMS for project %s\n", args.ProjectID)
